@@ -5,7 +5,9 @@ router.get('/developers', function(req, res) {
   res.send('Hello dev!');
 });
 
-router.post('/developers', function(req, res) {});
+router.post('/developers', function(req, res) {
+  res.send(req.body);
+});
 
 router.put('/developers/:id', function(req, res) {});
 
