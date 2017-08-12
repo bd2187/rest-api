@@ -6,7 +6,7 @@ router.get('/developers', function(req, res) {
   res.send('Hello dev!');
 });
 
-router.post('/developers', function(req, res, next) {
+router.post('/developers', function(req, res) {
   const Developer = new Dev(req.body);
   Developer.save()
     .then(developer => res.send(developer))
@@ -15,6 +15,14 @@ router.post('/developers', function(req, res, next) {
 
 router.put('/developers/:id', function(req, res) {});
 
-router.delete('/developers/:id', function(req, res) {});
+router.delete('/developers/:id', function(req, res) {
+  Dev.findByIdAndRemove({ _id: req.params.id })
+    .then(function(user) {
+      res.send({
+        message: `${user.name} was successfuly deleted from our database`
+      });
+    })
+    .catch(err => res.send(err));
+});
 
 module.exports = router;
