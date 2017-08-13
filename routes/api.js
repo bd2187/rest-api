@@ -13,7 +13,13 @@ router.post('/developers', function(req, res) {
     .catch(err => res.status(422).send({ error: err.message }));
 });
 
-router.put('/developers/:id', function(req, res) {});
+router.put('/developers/:id', function(req, res) {
+  Dev.findByIdAndUpdate({ _id: req.params.id }, req.body).then(function() {
+    Dev.findOne({ _id: req.params.id }).then(function(dev) {
+      res.send(dev);
+    });
+  });
+});
 
 router.delete('/developers/:id', function(req, res) {
   Dev.findByIdAndRemove({ _id: req.params.id })
